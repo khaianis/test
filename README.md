@@ -1,1 +1,1 @@
-Yeoman Generator of Project tomcat
+Yeoman Generator of Project test
