@@ -30,7 +30,7 @@ workflow:
 variables:
   NS_PREFIX: "hello-world-"
   PROJECT: "hello-world"
-  HELMFILE_NAMESPACE: ${pref-ns}${ci-ref}
+  HELMFILE_NAMESPACE: ${test}${test}
   DEBUG: "true"
   DEBUG_ENABLE: 'true'
 
@@ -38,7 +38,7 @@ variables:
 .test:
   stage: test
   environment:
-    name: helmfile/$ci-ref
+    name: helmfile/$test
     url: "$HELMFILE_ENVIRONMENT_URL"
   script:
   - kubectl port-forward -n $HELMFILE_NAMESPACE $(kubectl get deployment -o name -n $HELMFILE_NAMESPACE -l app.kubernetes.io/name=spring-boot) 8888:8080 >/dev/null 2>&1 &

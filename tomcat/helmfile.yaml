@@ -12,15 +12,15 @@ helmDefaults:
 helmBinary: /usr/local/bin/helm3
 # these labels will be applied to all releases in a Helmfile. Useful in templating if you have a helmfile per environment or customer and don't want to copy the same label to each release
 commonLabels:
-  project: {{requiredEnv "tomcat"}}
-  env: {{requiredEnv "ci-ref"}}
+  project: {{requiredEnv "test"}}
+  env: {{requiredEnv "test"}}
 releases:
-- name: hello-world-{{requiredEnv "ci-ref"}}
-  namespace: {{requiredEnv "pref-ns"}}{{requiredEnv "ci-ref"}}
+- name: hello-world-{{requiredEnv "test"}}
+  namespace: {{requiredEnv "test"}}{{requiredEnv "test"}}
   labels:
     app: hello-world
     component: tomcat
-  createNamespace: {{dev}}
+  createNamespace: {{test}}
   chart: gdp/tomcat-gdp
   version: 9.2.12-0.0.28
   missingFileHandler: Error

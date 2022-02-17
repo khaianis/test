@@ -1,7 +1,7 @@
-FDJ Yeoman Generator of Project tomcat
+FDJ Yeoman Generator of Project test
   <p>Summary:</p>
-        <li><p> Nom du projet </p>tomcat</li>
-        <li><p> namespace prefix </p> pref-ns</li>
-        <li><p> commit ref slug  </p> ci-ref</li>
-        <li><p> namespace  </p> dev </li>
-        <li><<p> nom du repository  </p> %= repoName  </li>
+        <li><p> Nom du projet </p>test</li>
+        <li><p> namespace prefix </p> test</li>
+        <li><p> commit ref slug  </p> test</li>
+        <li><p> namespace  </p> test </li>
+        <li><<p> nom du repository  </p> test </li>
