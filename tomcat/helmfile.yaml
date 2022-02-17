@@ -16,7 +16,7 @@ commonLabels:
   env: {{requiredEnv "ref_slug"}}
 releases:
 - name: hello-world-{{requiredEnv "ref_slug"}}
-  namespace: {{requiredEnv "fdj"}}{{requiredEnv "ref_slug"}}
+  namespace: {{requiredEnv "dev"}}{{requiredEnv "ref_slug"}}
   labels:
     app: hello-world
     component: tomcat

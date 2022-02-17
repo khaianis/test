@@ -30,7 +30,7 @@ workflow:
 variables:
   NS_PREFIX: "hello-world-"
   PROJECT: "hello-world"
-  HELMFILE_NAMESPACE: ${fdj}${ref_slug}
+  HELMFILE_NAMESPACE: ${dev}${ref_slug}
   DEBUG: "true"
   DEBUG_ENABLE: 'true'
 
