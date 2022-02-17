@@ -1,0 +1,52 @@
+include:
+  - project: "development-platform/continuous-deployment/gitlab-jobs"
+    ref: 1.0.13
+    file: "/.default.yml"
+  - project: "development-platform/continuous-deployment/gitlab-jobs"
+    ref: 1.0.13
+    file: "/debug/.global.yml"
+  - project: "development-platform/continuous-deployment/gitlab-jobs"
+    ref: 1.0.13
+    file: "/rancher/.global.yml"
+  - project: "development-platform/continuous-deployment/gitlab-jobs"
+    ref: 1.0.13
+    file: "/helmfile/.gitlab-ci.yml"
+  - project: "development-platform/continuous-deployment/gitlab-jobs"
+    ref: 1.0.13
+    file: "observability/.global.yml"   
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^feature\/.*$/ || $CI_COMMIT_REF_NAME == "dev"'
+      variables:
+        HELMFILE_ENVIRONMENT: devtodev
+        RANCHER_CLUSTER: devtodev
+        OBS_REF: 1.1.5
+    - if: '$CI_COMMIT_REF_NAME =~ /^int\/.*$/ || $CI_COMMIT_REF_NAME == "master"'
+      variables:
+        HELMFILE_ENVIRONMENT: int
+        RANCHER_CLUSTER: jeu-int-vitrolles
+        OBS_REF: 1.1.5 
+variables:
+  NS_PREFIX: "hello-world-"
+  PROJECT: "hello-world"
+  HELMFILE_NAMESPACE: ${ns-fdj}${fdj-ref}
+  DEBUG: "true"
+  DEBUG_ENABLE: 'true'
+
+#TEST
+.test:
+  stage: test
+  environment:
+    name: helmfile/$CI_COMMIT_REF_SLUG
+    url: "$HELMFILE_ENVIRONMENT_URL"
+  script:
+  - kubectl port-forward -n $HELMFILE_NAMESPACE $(kubectl get deployment -o name -n $HELMFILE_NAMESPACE -l app.kubernetes.io/name=spring-boot) 8888:8080 >/dev/null 2>&1 &
+  - sleep 5        
+  - newman run tests/collection.json --reporters junit -e tests/environment.json --reporter-junit-export report.xml --insecure
+  artifacts:
+    reports:
+      junit: report.xml
+
+
+
